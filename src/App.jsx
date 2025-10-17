@@ -1,5 +1,5 @@
 // App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import appRoutes from "../src/user/routes/appRoutes";
 import LoginPage from "./user/pages/Login";
 import SignUpPage from "./user/pages/Signuppage";
@@ -22,18 +22,16 @@ function App() {
         pauseOnHover
       />
       <Routes>
-        {/* Redirect / → /login */}
+      
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Public routes (no layout) */}
+        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign" element={<SignUpPage />} />
-        {/* <Route path="/personal-detail" element={<PersonalDetail />} /> */}
 
-        {/* Admin routes (with layout) */}
         <Route element={<UserProtector compo={<UserLayout />} />}>
           {appRoutes
-            .filter((route) => !["/login", "/sign", "/"].includes(route.path)) // exclude public routes
+            .filter((route) => !["/login", "/sign", "/"].includes(route.path))
             .map((route) => (
               <Route key={route.path} path={route.path} element={route.element} />
             ))}
