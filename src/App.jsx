@@ -1,0 +1,46 @@
+// App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import appRoutes from "./user/routes/AppRoutes";
+import LoginPage from "./user/pages/Login";
+import SignUpPage from "./user/pages/Signuppage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserLayout from "./user/UserLayout";
+import UserProtector from "./user/middleware/UserProtector";
+
+function App() {
+  return (
+    <Router>
+      <ToastContainer
+        position="top-right"
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Routes>
+        {/* Redirect / → /login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Public routes (no layout) */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign" element={<SignUpPage />} />
+        {/* <Route path="/personal-detail" element={<PersonalDetail />} /> */}
+
+        {/* Admin routes (with layout) */}
+        <Route element={<UserProtector compo={<UserLayout />} />}>
+          {appRoutes
+            .filter((route) => !["/login", "/sign", "/"].includes(route.path)) // exclude public routes
+            .map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+        </Route>
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
