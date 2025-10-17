@@ -6,7 +6,6 @@ export const userApi = createApi({
     tagTypes: ["user"],
     endpoints: (builder) => {
         return {
-
             registerUser: builder.mutation({
                 query: userData => {
                     return {
@@ -48,8 +47,13 @@ export const userApi = createApi({
                 invalidatesTags: ["user"],
 
             }),
-
-
+            updateProfile :builder.mutation({
+                query:(data)=>({
+                    url:"/edit-profile",
+                    method:"PATCH",
+                    body:data
+                })
+            })
         }
     }
 })
@@ -58,5 +62,6 @@ export const {
     useRegisterUserMutation,
     useLoginUserMutation,
     useSendOtpMutation,
-    useLogoutUserMutation
+    useLogoutUserMutation,
+    useUpdateProfileMutation
 } = userApi

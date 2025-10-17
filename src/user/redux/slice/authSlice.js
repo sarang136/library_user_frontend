@@ -14,7 +14,6 @@ const authSlice = createSlice({
         },
     },
     extraReducers: builder => builder
-
         .addMatcher(
             userApi.endpoints.loginUser.matchFulfilled,
             (state, { payload }) => {
@@ -28,9 +27,14 @@ const authSlice = createSlice({
                 state.user = null;
                 localStorage.removeItem("user");
             }
+        ).addMatcher(
+            userApi.endpoints.updateProfile.matchFulfilled,
+            (state, { payload }) => {
+                console.log(payload);
+                state.user = payload;
+                // localStorage.removeItem("user");
+            }
         ),
-
-
 
 })
 

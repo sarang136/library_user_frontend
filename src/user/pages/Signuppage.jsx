@@ -11,7 +11,7 @@ const SignUpPage = () => {
     const [registerUser, { isLoading, isError, isSuccess, error }] = useRegisterUserMutation();
     const navigate = useNavigate();
 
-    // ✅ Formik setup
+    
     const formik = useFormik({
         initialValues: {
             name: "",
