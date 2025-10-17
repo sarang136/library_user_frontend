@@ -1,6 +1,6 @@
 // App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import appRoutes from "./user/routes/AppRoutes";
+import appRoutes from "../src/user/routes/appRoutes";
 import LoginPage from "./user/pages/Login";
 import SignUpPage from "./user/pages/Signuppage";
 import { ToastContainer } from "react-toastify";

@@ -1,4 +1,3 @@
-// appRoutes.jsx
 import AdmissionDetails from "../pages/AdmissionDetails";
 import AttendancePage2 from "../pages/Attendance";
 import AttendanceHistory from "../pages/AttendanceHistory";
