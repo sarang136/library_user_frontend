@@ -5,7 +5,7 @@ import { Upload } from "lucide-react"
 import { useSelector } from "react-redux"
 
 
-const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNumber, onConfirm }) =>  {
+const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNumber, onConfirm }) => {
     const { data: addonResponse } = useGetAddonsQuery()
     const addons = Array.isArray(addonResponse?.AddOns) ? addonResponse.AddOns : []
 
@@ -20,7 +20,7 @@ const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNum
     const totalAddonAmount = addonPrice * watchQuantity
 
     // Add admission amount prop to total price
-    const totalPrice = 2000 + totalAddonAmount + Number(admissionAmount)
+    const totalPrice = totalAddonAmount + Number(admissionAmount)
 
     // Auto-fill user data on component mount with safe DOB handling
     useEffect(() => {
@@ -291,9 +291,10 @@ const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNum
 
                         {/* Add On Service */}
                         <div>
-                            <label className="block text-gray-700 text-sm mb-1 font-bold">Add On Service</label>
+                            <label className="block text-gray-700 text-sm mb-1 font-bold">
+                                Add On Service
+                            </label>
                             <select
-                                {...register("addOn", { required: "Please select a service" })}
                                 value={selectedAddonId}
                                 onChange={handleAddonChange}
                                 className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm sm:text-base"
@@ -301,16 +302,22 @@ const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNum
                                 <option value="">Select Service</option>
                                 {addons.map((addon) => (
                                     <option key={addon._id} value={addon._id}>
-                                        {addon.serviceName}
+                                        {addon.serviceName}{" "}
+                                        {addon.availability !== undefined && `(Available: ${addon.availability})`}
                                     </option>
                                 ))}
                             </select>
-                            {errors.addOn && <p className="text-red-500 text-xs sm:text-sm">{errors.addOn.message}</p>}
+
+                            {errors.addOn && (
+                                <p className="text-red-500 text-xs sm:text-sm">{errors.addOn.message}</p>
+                            )}
 
                             {selectedAddonId && (
                                 <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-gray-700 text-sm mb-1 font-bold">Quantity</label>
+                                        <label className="block text-gray-700 text-sm mb-1 font-bold">
+                                            Quantity
+                                        </label>
                                         <input
                                             type="number"
                                             min={1}
@@ -322,7 +329,9 @@ const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNum
                                     </div>
 
                                     <div>
-                                        <label className="block text-gray-700 text-sm mb-1 font-bold">Amount</label>
+                                        <label className="block text-gray-700 text-sm mb-1 font-bold">
+                                            Amount
+                                        </label>
                                         <input
                                             type="number"
                                             {...register("addonAmount", { required: true })}
@@ -337,11 +346,10 @@ const ConfirmBooking = ({ seatId, amount: admissionAmount = 0, seatData, seatNum
                             {/* Total Price Display */}
                             <div className="flex justify-between items-center mt-6 sm:mt-8">
                                 <p className="text-gray-700 font-bold">Total Price :</p>
-                                <p className="text-green-700 text-lg font-bold">
-                                    ₹{totalPrice}
-                                </p>
+                                <p className="text-green-700 text-lg font-bold">₹{totalPrice}</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

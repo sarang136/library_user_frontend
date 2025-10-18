@@ -188,8 +188,7 @@ const PersonalDetail = () => {
         </div>
     );
 };
-// 
-// 
+
 const DetailInput = ({ label, value }) => (
     <div className="flex flex-col">
         <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
